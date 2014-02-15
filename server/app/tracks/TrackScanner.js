@@ -8,11 +8,6 @@ var fs = rek('fs'),
 	path = rek('path');
 
 function TrackScanner() {
-	this.foo = ''
-}
-
-TrackScanner.prototype._listFiles = function(directory, onComplete) {
-	this._scanDirectory(directory, '', {}, onComplete);
 }
 
 TrackScanner.prototype._isAudioFile = function(file) {
@@ -40,18 +35,9 @@ TrackScanner.prototype._scanDirectory = function(directory) {
 }
 
 
-TrackScanner.prototype._createLocation = function(path) {
-	var location = new Location();
-	return location;
-};
-
 TrackScanner.prototype._createLocations = function(directory) {
-	var subLocations = _.map(directory.directories, function(dir) {
-		return this._createLocations(dir)
-	}, this);
-	var tracks = _.map(directory.files, function(file) {
-		return this._createTrack(file)
-	}, this);
+	var subLocations = _.map(directory.directories, this._createLocations, this);
+	var tracks = _.map(directory.files, this._createTrack, this);
 	return new Location(directory.path, subLocations, tracks)
 }
 
