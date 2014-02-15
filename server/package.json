@@ -1,0 +1,16 @@
+{
+	"name": "application-name",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node express.js"
+	},
+	"dependencies": {
+		"express": "3.4.8",
+		"ejs": "*",
+		"speaker": "0.0.10",
+		"lame": "1.0.3",
+		"lodash": "2.4.1",
+		"rekuire": "0.1.5"
+	}
+}
