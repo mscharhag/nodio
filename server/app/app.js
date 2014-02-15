@@ -3,6 +3,7 @@ var app = module.exports = {};
 
 global.rek = require('rekuire');
 global._ = rek('lodash');
+global.assert = rek('assert');
 
 
 var TrackScanner = rek('TrackScanner'),
