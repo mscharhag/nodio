@@ -2,7 +2,7 @@
 console.log('paths: ' + require.node_modules)
 var app = require('../../../app/app.js'),
 	assert = require('assert'),
-	TrackScanner = rek('TrackScanner');
+	TrackScanner = rek('LocationScanner');
 
 var testFiles = '../../files'
 

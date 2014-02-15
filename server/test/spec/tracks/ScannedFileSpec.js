@@ -1,8 +1,8 @@
-var app = require('../../../app/app.js'),
-	ScannedFile = rek('ScannedFile');
+var app = require('../../../app/app.js')
+	// ,	ScannedFile = rek('ScannedFile');
 
 describe('ScannedFile tests', function() {
-
+	return
 	function sf(file) {
 		return new ScannedFile(file);
 	}

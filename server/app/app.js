@@ -1,15 +1,18 @@
+
+var app = module.exports = {};
+
+global.rek = require('rekuire');
+global._ = rek('lodash');
+
+
+var TrackScanner = rek('TrackScanner'),
+	TrackRepository = rek('TrackRepository');
+
+
 process.on('uncaughtException',function(e) {
 	console.log("Caught unhandled exception: " + e);
 	console.log(" ---> : " + e.stack);
 });
-
-var app = {};
-
-exports.app = app;
-
-var _ = require('lodash');
-var rek = require('rekuire');
-
 
 if (!_.endsWith) {
 	_.endsWith = function(str, suffix) {
@@ -17,8 +20,7 @@ if (!_.endsWith) {
 	};
 }
 
-
-global._ = _;
-global.rek = rek;
+app.trackScanner = new TrackScanner();
+app.trackRepository = new TrackRepository(app.trackScanner);
 
 console.log('app.js complete')

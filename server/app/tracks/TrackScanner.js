@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash'); // TODO: make global..
 // TODO: cyclic links?
 
 var fs = rek('fs'),
@@ -62,53 +61,7 @@ TrackScanner.prototype._createTrack = function(file) {
 
 TrackScanner.prototype.getLocations = function(directory) {
 	var directoryStructure = this._scanDirectory(directory);
-	
-
-	this._listFiles(directory, function(error, files) {
-		if (error) {
-			onComplete(error);
-			return;
-		}
-		
-		
-		/*
-		_.chain(files)
-			.filter(function(file) { return file.isAudioFile() })
-			.groupBy(function(file) { return file.getExtension() })
-			.reduce(function(result, files, key) {
-				
-			}, {})
-			
-		var locations = {};
-		_.each(files, function(file) {
-			var locationPath = this._getLocation(file);
-			if (!files[location]) {
-				files[location] = this._createLocation(locationPath);
-			}
-			files[location]
-			files[location]
-		});
-		_.chain(files)
-				.filter(this._isAudioTrack, this)
-				.map(this._getLocation, this)
-				.unique()
-				.map(
-		var audioFiles = _
-		*/
-		/*return _.chain(files)
-			.filter(_.bind(this._isAudioTrack, this))
-			.map(_.bind(this._createTrack, this))
-			.value();*/
-//		_.filter(files, _.bind(this._isAudioTrack, this)).
-//		_.map(files, function(file) {
-//			if (extension matches) { // _.filter() ??
-//
-//			}
-//		})
-	})
-
+	return this._createLocations(directoryStructure);
 }
 
-
-//exports.TrackScanner = TrackScanner;
 module.exports = TrackScanner;
