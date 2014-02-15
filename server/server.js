@@ -2,7 +2,8 @@
 
 var app = require('./app/app'),
 	http = require('http'),
-	express = rek('express');
+	express = rek('express'),
+	dto = rek('dto');
 
 var server = app.server = express();
 
@@ -13,7 +14,9 @@ server.use(express.logger('dev'));
 server.use(express.json());
 server.use(express.urlencoded());
 server.use(express.methodOverride());
+server.use(dto());
 server.use(server.router);
+
 
 // development only
 if ('development' == server.get('env')) {

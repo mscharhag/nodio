@@ -1,17 +1,30 @@
 'use strict';
 
+var Location = rek('Location');
+
 function TrackRepository(trackScanner) {
 	this._trackScanner = trackScanner;
-	this._locations = null;
+	this._baseLocation = null;
+	this._baseLocationPath = 'test/files';
 }
 
 
-TrackRepository.prototype.getLocations = function() {
-	if (!this._locations) {
-		this._locations = this._trackScanner.getLocations('test/files/');
+TrackRepository.prototype.getLocation = function(locationPath) {
+	var baseLocation = this._getBaseLocation();
+	if (!locationPath) {
+		return baseLocation;
 	}
-	return this._locations;
+	var subLocation = baseLocation.findSubLocation(locationPath);
+	return subLocation;
+
 }
 
+TrackRepository.prototype._getBaseLocation = function() {
+	if (!this._baseLocation) {
+		var scannedLocation = this._trackScanner.getLocations(this._baseLocationPath);
+		this._baseLocation = new Location('Locations', [scannedLocation]);
+	}
+	return this._baseLocation;
+}
 
 module.exports = TrackRepository;

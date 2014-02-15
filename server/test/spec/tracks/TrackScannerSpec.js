@@ -47,7 +47,7 @@ describe('TrackScanner tests', function() {
 		var result = trackScanner._createLocations(testStruct);
 		expectLocation(result, 'test/files', 'files');
 
-		var locations = result.getLocations();
+		var locations = result.getSubLocations();
 		expect(locations.length).toEqual(1);
 		expectLocation(locations[0], 'test/files/tracks', 'tracks');
 
@@ -56,7 +56,7 @@ describe('TrackScanner tests', function() {
 		expectTrack(locationTracks[0], 'mp3-01.mp3')
 		expectTrack(locationTracks[1], 'mp3-02.mp3')
 
-		var subLocation = locations[0].getLocations();
+		var subLocation = locations[0].getSubLocations();
 
 		expect(subLocation.length).toEqual(1);
 		expectLocation(subLocation[0], 'test/files/tracks/sub-folder', 'sub-folder')
@@ -69,7 +69,7 @@ describe('TrackScanner tests', function() {
 
 	function expectLocation(location, path, name) {
 		expect(location instanceof Location).toBeTruthy();
-		expect(location.getPath()).toEqual(path);
+		expect(location.getFullPath()).toEqual(path);
 		expect(location.getName()).toEqual(name);
 	}
 

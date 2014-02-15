@@ -7,8 +7,7 @@ var fs = rek('fs'),
 	Location = rek('Location'),
 	path = rek('path');
 
-function TrackScanner() {
-}
+function TrackScanner() { }
 
 TrackScanner.prototype._isAudioFile = function(file) {
 	var extension = path.extname(file).substring(1).toLowerCase();
@@ -46,6 +45,7 @@ TrackScanner.prototype._createTrack = function(file) {
 }
 
 TrackScanner.prototype.getLocations = function(directory) {
+	assert(directory, 'directory is not defined')
 	var directoryStructure = this._scanDirectory(directory);
 	return this._createLocations(directoryStructure);
 }
