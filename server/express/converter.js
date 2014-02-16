@@ -13,13 +13,19 @@ mapping.Location = function(location) {
 				}
 			}
 		}),
-		tracks : _.map(location.getTracks(), function(track) {
-			return {
-				name : track.getName()
-			}
-		}),
+		tracks : _.map(location.getTracks(), mapping.Track),
 		links : {
-			self : 'locations' + location.getPath()
+			self : '/locations' + location.getPath()
+		}
+	}
+}
+
+mapping.Track = function(track) {
+	return {
+		name : track.getName(),
+		links : {
+			// TODO: add self link..
+			play : '/player?track=' + track.getPath()
 		}
 	}
 }

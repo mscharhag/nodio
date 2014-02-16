@@ -1,6 +1,8 @@
 'use strict';
 
 var server = rek('app').server,
-	location = rek('location');
+	locations = rek('locations'),
+	player = rek('player');
 
-server.get('/location**', location.list);
+server.get('/location**', locations.list);
+server.get('/player', player.play)

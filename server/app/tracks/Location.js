@@ -13,6 +13,12 @@ function Location(path, locations, tracks) {
 		assert(!subLocation._parent, 'sub location ' + subLocation.getName() + ' already has a parent');
 		subLocation._parent = this;
 	}, this);
+
+	_.each(this._tracks, function(track) {
+		// TODO: move this logic outside of location constructor and avoid private track._location access!
+		assert(!track._location, 'track ' + track.getName() + ' already has a location');
+		track._location = this;
+	}, this)
 }
 
 
@@ -49,6 +55,20 @@ Location.prototype.findSubLocation = function(locationPath) {
 	}
 	return location;
 }
+
+Location.prototype.findTrack = function(trackPath) {
+	var locationPath = trackPath.substring(0, trackPath.lastIndexOf('/'));
+	var trackName = trackPath.substring(trackPath.lastIndexOf('/') + 1);
+	var location = this.findSubLocation(locationPath);
+	return location.getTrack(trackName);
+}
+
+Location.prototype.getTrack = function(trackName) {
+	return _.find(this._tracks, function(track) {
+		return track.getName() === trackName;
+	})
+}
+
 
 Location.prototype.getTracks = function() {
 	return this._tracks;

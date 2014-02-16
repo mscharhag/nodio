@@ -7,7 +7,8 @@ global.assert = rek('assert');
 
 
 var TrackScanner = rek('TrackScanner'),
-	TrackRepository = rek('TrackRepository');
+	TrackRepository = rek('TrackRepository'),
+	AudioPlayer = rek('AudioPlayer');
 
 
 process.on('uncaughtException',function(e) {
@@ -23,5 +24,6 @@ if (!_.endsWith) {
 
 app.trackScanner = new TrackScanner();
 app.trackRepository = new TrackRepository(app.trackScanner);
+app.audioPlayer = new AudioPlayer();
 
 console.log('app.js complete')

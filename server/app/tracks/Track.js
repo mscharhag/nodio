@@ -5,10 +5,20 @@ exports.Track = Track;
 function Track(file) {
 	this._name = file;
 	this._length = 0;
+	this._location = null;
 }
 
 Track.prototype.getName = function() {
 	return this._name;
+}
+
+
+Track.prototype.getPath = function() {
+	return this._location.getPath() + '/' + this.getName();
+}
+
+Track.prototype.getFullPath = function() {
+	return this._location.getFullPath() + '/' + this.getName();
 }
 
 

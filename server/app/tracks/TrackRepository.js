@@ -16,8 +16,13 @@ TrackRepository.prototype.getLocation = function(locationPath) {
 	}
 	var subLocation = baseLocation.findSubLocation(locationPath);
 	return subLocation;
-
 }
+
+TrackRepository.prototype.getTrack = function(trackPath) {
+	assert(trackPath, 'Parameter trackPath is required');
+	return this._getBaseLocation().findTrack(trackPath);
+}
+
 
 TrackRepository.prototype._getBaseLocation = function() {
 	if (!this._baseLocation) {
