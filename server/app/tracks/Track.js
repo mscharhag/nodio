@@ -2,39 +2,31 @@
 
 exports.Track = Track;
 
-function Track(file) {
-	this._name = file;
-	this._length = 0;
-	this._location = null;
+function Track(location, filename) {
+	assert(location && filename, 'Parameters "location" and "filename" are required.');
+	this._filename = filename;
+	this._location = location;
+	this._location.addTrack(this);
 }
 
 Track.prototype.getName = function() {
-	return this._name;
+	return this._filename;
 }
-
 
 Track.prototype.getPath = function() {
-	return this._location.getPath() + '/' + this.getName();
+	var locationPath = this._location.getPath();
+	if (locationPath === '/') {
+		return locationPath + this.getName();
+	}
+	return locationPath + '/' + this.getName();
 }
 
-Track.prototype.getFullPath = function() {
-	return this._location.getFullPath() + '/' + this.getName();
+Track.prototype.getResourcePath = function() {
+	return this._location.getResourcePath() + '/' + this.getName();
 }
 
-
-//ScannedFile.prototype.getExtension = function() {
-//	var ext = path.extname(this._file)
-//	return ext.substring(1).toLowerCase();
-//}
-//
-//ScannedFile.prototype.getPath = function() {
-//	return this._file.substring(0, this._file.lastIndexOf('/'));
-//}
-//
-//ScannedFile.prototype.getName = function() {
-//	return path.basename(this._file, path.extname(this._file))
-//}
+Track.prototype.getLocation = function() {
+	return this._location;
+}
 
 module.exports = Track;
-
-

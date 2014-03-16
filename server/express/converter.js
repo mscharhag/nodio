@@ -2,10 +2,10 @@
 
 var mapping = {};
 
-mapping.Location = function(location) {
+mapping.TrackLocation = function(location) {
 	return {
 		name : location.getName(),
-		locations : _.map(location.getSubLocations(), function(subLocation) {
+		locations : _.map(location.getLocations(), function(subLocation) {
 			return {
 				name : subLocation.getName(),
 				links : {
@@ -25,7 +25,7 @@ mapping.Track = function(track) {
 		name : track.getName(),
 		links : {
 			// TODO: add self link..
-			play : '/player?track=' + track.getPath()
+			play : '/player?action=play&track=' + track.getPath()
 		}
 	}
 }

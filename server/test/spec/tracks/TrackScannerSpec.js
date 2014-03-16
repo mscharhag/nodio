@@ -1,8 +1,9 @@
+'use strict';
+
 var app = require('../../../app/app.js'),
 	TrackScanner = rek('TrackScanner'),
-	Location = rek('Location'),
-	Track = rek('Track'),
-	util = rek('util');
+	TrackLocation = rek('TrackLocation'),
+	Track = rek('Track');
 
 describe('TrackScanner tests', function() {
 
@@ -26,8 +27,7 @@ describe('TrackScanner tests', function() {
 	beforeEach(function() {
 		trackScanner = new TrackScanner();
 	});
-	
-	
+
 	it('should list all files', function() {
 		var result = trackScanner._scanDirectory(testFiles);
 		expect(_.isEqual(result, testStruct)).toBeTruthy();
@@ -42,40 +42,50 @@ describe('TrackScanner tests', function() {
 		expect(trackScanner._isAudioFile('foo.mp3.txt')).toBeFalsy();
 	});
 
-
 	it('should build a location structure', function() {
-		var result = trackScanner._createLocations(testStruct);
-		expectLocation(result, 'test/files', 'files');
+		var baseLocation = new TrackLocation();
+		trackScanner._createLocations(testStruct, baseLocation);
 
-		var locations = result.getSubLocations();
+		// /
+		expect(baseLocation.getTracks().length).toEqual(0);
+		var locations = baseLocation.getLocations();
 		expect(locations.length).toEqual(1);
-		expectLocation(locations[0], 'test/files/tracks', 'tracks');
 
-		var locationTracks = locations[0].getTracks();
-		expect(locationTracks.length).toEqual(2)
-		expectTrack(locationTracks[0], 'mp3-01.mp3')
-		expectTrack(locationTracks[1], 'mp3-02.mp3')
+		// /files
+		var location = locations[0];
+		expectLocation(location, '/files', 'files');
+		expectTracks(location, []);
+		locations = location.getLocations();
+		expect(locations.length).toEqual(1);
 
-		var subLocation = locations[0].getSubLocations();
+		// /files/tracks
+		location = locations[0];
+		expectLocation(location, '/files/tracks', 'tracks');
+		expectTracks(location, ['mp3-01.mp3', 'mp3-02.mp3']);
+		locations = location.getLocations();
+		expect(locations.length).toEqual(1);
 
-		expect(subLocation.length).toEqual(1);
-		expectLocation(subLocation[0], 'test/files/tracks/sub-folder', 'sub-folder')
-
-		var subLocationTracks = subLocation[0].getTracks();
-		expect(subLocationTracks.length).toEqual(2)
-		expectTrack(subLocationTracks[0], 'sub-folder-mp3-01.mp3')
-		expectTrack(subLocationTracks[1], 'sub-folder-ogg-01.ogg')
+		// /files/tracks/sub-folder
+		location = locations[0];
+		expectLocation(location, '/files/tracks/sub-folder', 'sub-folder');
+		expectTracks(location, ['sub-folder-mp3-01.mp3', 'sub-folder-ogg-01.ogg']);
+		locations = location.getLocations();
+		expect(locations.length).toEqual(0);
 	});
 
 	function expectLocation(location, path, name) {
-		expect(location instanceof Location).toBeTruthy();
-		expect(location.getFullPath()).toEqual(path);
+		expect(location instanceof TrackLocation).toBeTruthy();
+		expect(location.getPath()).toEqual(path);
 		expect(location.getName()).toEqual(name);
 	}
 
-	function expectTrack(track, name) {
-		expect(track instanceof Track).toBeTruthy();
-		expect(track.getName()).toEqual(name);
+	function expectTracks(location, trackNames) {
+		var tracks = location.getTracks();
+		expect(tracks.length).toEqual(trackNames.length);
+		_.each(tracks, function(track) {
+			expect(track instanceof Track).toBeTruthy();
+			expect(_.contains(trackNames, track.getName())).toBeTruthy();
+		})
 	}
 
 });

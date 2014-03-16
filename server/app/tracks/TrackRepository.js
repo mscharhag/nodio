@@ -1,21 +1,20 @@
 'use strict';
 
-var Location = rek('Location');
+var TrackLocation = rek('TrackLocation'),
+	config = rek('config');
 
 function TrackRepository(trackScanner) {
 	this._trackScanner = trackScanner;
 	this._baseLocation = null;
-	this._baseLocationPath = 'test/files';
+	this._baseLocationPath = config.trackDirectory;
 }
 
-
-TrackRepository.prototype.getLocation = function(locationPath) {
+TrackRepository.prototype.findLocation = function(locationPath) {
 	var baseLocation = this._getBaseLocation();
-	if (!locationPath) {
+	if (!locationPath || locationPath == '/') {
 		return baseLocation;
 	}
-	var subLocation = baseLocation.findSubLocation(locationPath);
-	return subLocation;
+	return baseLocation.findLocation(locationPath);
 }
 
 TrackRepository.prototype.getTrack = function(trackPath) {
@@ -23,11 +22,9 @@ TrackRepository.prototype.getTrack = function(trackPath) {
 	return this._getBaseLocation().findTrack(trackPath);
 }
 
-
 TrackRepository.prototype._getBaseLocation = function() {
 	if (!this._baseLocation) {
-		var scannedLocation = this._trackScanner.getLocations(this._baseLocationPath);
-		this._baseLocation = new Location('Locations', [scannedLocation]);
+		this._baseLocation = this._trackScanner.getLocations(this._baseLocationPath);
 	}
 	return this._baseLocation;
 }

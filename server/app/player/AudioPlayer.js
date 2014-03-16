@@ -1,6 +1,7 @@
 'use strict';
 
-var Speaker = rek('speaker'),
+//TODO: remove file? no longer needed
+var f = 42, //Speaker = rek('speaker'),
 	fs = rek('fs'),
 	lame = rek('lame');
 

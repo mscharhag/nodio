@@ -1,9 +1,10 @@
 'use strict';
-
+//"speaker": "0.0.10",
 var app = require('./app/app'),
 	http = require('http'),
 	express = rek('express'),
-	dto = rek('dto');
+	dto = rek('dto'),
+	errorHandler = rek('errorHandler');
 
 var server = app.server = express();
 
@@ -16,12 +17,14 @@ server.use(express.urlencoded());
 server.use(express.methodOverride());
 server.use(dto());
 server.use(server.router);
-
+server.use(errorHandler());
 
 // development only
-if ('development' == server.get('env')) {
-	server.use(express.errorHandler());
-}
+//if ('development' == server.get('env')) {
+//	server.use(express.errorHandler());
+//}
+
+
 
 rek('mapping');
 
