@@ -20,7 +20,7 @@ var pipe = '/ramdisk/omxplayer';
 
 
 function OmxPlayer() {
-	this._volume = 0.9;
+	this._volume = 10; // ranges from 0 to 20
 	this._state = STOPPED;
 }
 
@@ -30,7 +30,8 @@ OmxPlayer.prototype.play = function(track) {
 	}
 	this._preparePipe();
 	var trackPath = track.getResourcePath();
-	this._exec('omxplayer ' + trackPath + ' < ' + pipe, function(err, stdout, stderr) {
+	var volume = '--vol ' + this._toMillibels(this._volume) + ' ';
+	this._exec('omxplayer ' + volume + trackPath + ' < ' + pipe, function(err, stdout, stderr) {
 		console.log('err: ' + err);
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
@@ -89,25 +90,21 @@ OmxPlayer.prototype.setVolume = function(value) {
 	if (this._state == STOPPED) {
 		throw new Error('Cannot set volume, player is stopped');
 	}
-
-	assert(value);
-	if (value < 0) value = 0;
-	if (value > 1) value = 1;
-
-	var difference = value - this._volume;
-	var stepSize = 0.05;
-	var stepsToDo = Math.floor(Math.abs(difference / stepSize));
-	console.log('stepsToDo: ' + stepsToDo)
-	var volumeChangePerStep = stepSize * Math.sign(difference);
+	if (typeof value !== 'number' || value < 0 || value > 20) {
+		throw errors.illegalArgument('Volume has to be a number between 0 and 20.')
+	}
+	var difference = Math.round(value) - this._volume;
+	var step = Math.sign(difference);
+	var stepsToDo = Math.abs(difference);
 	for (var i = 0; i < stepsToDo; i++) {
-		this._volume += volumeChangePerStep;
-		if (volumeChangePerStep > 0) {
+		this._volume += step;
+		if (step > 0) {
 			this._doAction('increaseVolume');
 		} else {
 			this._doAction('decreaseVolume');
 		}
 	}
-	console.log('volume changed to ' + this._volume)
+	console.log('volume changed to ' + this._volume);
 };
 
 OmxPlayer.prototype.getVolume = function() {
@@ -129,5 +126,13 @@ OmxPlayer.prototype._exec = function(cmd, cb) {
 	cp.exec(cmd, cb);
 	console.log('executed: ' + cmd)
 };
+
+OmxPlayer.prototype._toMillibels = function(value) {
+	// 0 -> -6000mB
+	// 20 -> 0mB
+	assert(typeof value === 'number')
+	var millibel = (value - 20) * 300;
+	return Math.clamp(millibel, -6000, 0);
+}
 
 module.exports = OmxPlayer;
