@@ -29,6 +29,7 @@ describe('Location tests', function() {
 	it('should return a list of sub locations', function() {
 		expect(_.isEqual(baseLocation.getLocations(), [locationA, locationB])).toBeTruthy();
 		expect(_.isEqual(locationA.getLocations(), [subLocationA])).toBeTruthy();
+		expect(subLocationA.getLocations().length).toEqual(0);
 		expect(locationB.getLocations().length).toEqual(0);
 	});
 
@@ -36,22 +37,40 @@ describe('Location tests', function() {
 		expect(baseLocation.getLocation('a')).toEqual(locationA);
 		expect(baseLocation.getLocation('b')).toEqual(locationB);
 		expect(locationA.getLocation('sub-a')).toEqual(subLocationA);
-		expect(locationA.getLocation('doesNotExist')).toBeFalsy();
+		expect(baseLocation.getLocation('doesNotExist')).toEqual(null);
+		expect(baseLocation.getLocation('')).toEqual(null);
+		expect(baseLocation.getLocation()).toEqual(null);
 	});
 
 	it('should find the correct sub location', function() {
 		expect(baseLocation.findLocation('/a')).toEqual(locationA);
+		expect(baseLocation.findLocation('a')).toEqual(locationA);
+		expect(baseLocation.findLocation('/a/sub-a')).toEqual(subLocationA);
 		expect(baseLocation.findLocation('a/sub-a')).toEqual(subLocationA);
-		expect(baseLocation.findLocation('a/b')).toBeFalsy();
+		expect(baseLocation.findLocation('/')).toEqual(baseLocation);
+		expect(baseLocation.findLocation('/a/b')).toEqual(null);
+		expect(baseLocation.findLocation('a/b')).toEqual(null);
+		expect(baseLocation.findLocation('a/')).toEqual(null);
+		expect(baseLocation.findLocation('c')).toEqual(null);
+		expect(baseLocation.findLocation('a//b')).toEqual(null);
+		expect(baseLocation.findLocation('')).toEqual(null);
+		expect(baseLocation.findLocation()).toEqual(null);
 	});
 
 	it('should find the correct tracks', function() {
 		expect(baseLocation.findTrack('/a/track-a1')).toEqual(trackA1);
+		expect(baseLocation.findTrack('a/track-a1')).toEqual(trackA1);
 		expect(baseLocation.findTrack('/a/track-a2')).toEqual(trackA2);
 		expect(baseLocation.findTrack('/a/track-b1')).toEqual(null);
 		expect(baseLocation.findTrack('/b/track-b1')).toEqual(trackB1);
 		expect(baseLocation.findTrack('/a/sub-a/track-sub-a1')).toEqual(trackSubA1);
+		expect(baseLocation.findTrack('/a/sub-a/track-sub-a1/')).toEqual(null);
 		expect(baseLocation.findTrack('/a/track-sub-a1')).toEqual(null);
 		expect(baseLocation.findTrack('/doesNotExist')).toEqual(null);
+		expect(baseLocation.findTrack('/doesNotExist/track')).toEqual(null);
+		expect(baseLocation.findTrack('//')).toEqual(null);
+		expect(baseLocation.findTrack('/')).toEqual(null);
+		expect(baseLocation.findTrack('')).toEqual(null);
+		expect(baseLocation.findTrack()).toEqual(null);
 	})
 });

@@ -49,12 +49,21 @@ TrackLocation.prototype.addLocation = function(location) {
 }
 
 TrackLocation.prototype.getLocation = function(locationName) {
+	if (!locationName) {
+		return null;
+	}
 	return _.find(this._locations, function(location) {
 		return location.getName() === locationName;
 	});
 }
 
 TrackLocation.prototype.findLocation = function(locationPath) {
+	if (!locationPath) {
+		return null;
+	}
+	if (locationPath === '/') {
+		return this;
+	}
 	var locationNames = locationPath.split('/');
 	if (locationNames.length > 0 && locationNames[0] === '') {
 		locationNames.splice(0, 1);
@@ -67,13 +76,19 @@ TrackLocation.prototype.findLocation = function(locationPath) {
 }
 
 TrackLocation.prototype.findTrack = function(trackPath) {
+	if (!trackPath) {
+		return null;
+	}
 	var locationPath = trackPath.substring(0, trackPath.lastIndexOf('/'));
 	var trackName = trackPath.substring(trackPath.lastIndexOf('/') + 1);
 	var location = this.findLocation(locationPath);
-	return location.getTrack(trackName);
+	return location ? location.getTrack(trackName) : null;
 }
 
 TrackLocation.prototype.getTrack = function(trackName) {
+	if (!trackName) {
+		return null;
+	}
 	return _.find(this._tracks, function(track) {
 		return track.getName() === trackName;
 	})
