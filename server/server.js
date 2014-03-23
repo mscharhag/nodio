@@ -26,7 +26,7 @@ server.use(errorHandler());
 
 
 
-rek('mapping');
+rek('routes');
 
 http.createServer(server).listen(server.get('port'), function(){
   console.log('Express server listening on port ' + server.get('port'));

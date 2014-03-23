@@ -24,9 +24,12 @@ exports.setStatus = function(req, res) {
 		stop(req, res);
 	}
 
-	if (req.query.volume) {
-		var value = req.query.volume;
-		app.audioPlayer.setVolume(value);
+	var volume = req.query.volume;
+	if (volume) {
+		if (isNaN(volume)) {
+			throw errors.illegalArgument('Volume has to be a number')
+		}
+		app.audioPlayer.setVolume(parseInt(volume));
 	}
 	getStatus(req, res);
 }

@@ -15,6 +15,11 @@ exports.trackNotFound = function(trackPath) {
 	return new NodioError(1001, message);
 }
 
+exports.locationNotFound = function(locationPath) {
+	var message = 'Location ' + (locationPath ? '"' + locationPath + '" ' : '') + 'not found';
+	return new NodioError(1004, message);
+}
+
 exports.invalidState = function(message) {
 	return new NodioError(1002, message);
 }

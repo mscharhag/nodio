@@ -1,4 +1,8 @@
 'use strict';
+var app = rek('app');
+
+var locationsUrl = app.config.locationsUrl;
+var playerUrl = app.config.playerUrl;
 
 var mapping = {};
 
@@ -9,13 +13,13 @@ mapping.TrackLocation = function(location) {
 			return {
 				name : subLocation.getName(),
 				links : {
-					self : '/locations' + subLocation.getPath()
+					self : locationsUrl + subLocation.getPath()
 				}
 			}
 		}),
 		tracks : _.map(location.getTracks(), mapping.Track),
 		links : {
-			self : '/locations' + location.getPath()
+			self : locationsUrl + location.getPath()
 		}
 	}
 }
@@ -25,7 +29,7 @@ mapping.Track = function(track) {
 		name : track.getName(),
 		links : {
 			// TODO: add self link..
-			play : '/player?action=play&track=' + track.getPath()
+			play : playerUrl + '?action=play&track=' + track.getPath()
 		}
 	}
 }
