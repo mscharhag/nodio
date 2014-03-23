@@ -11,7 +11,7 @@ function TrackRepository(trackScanner) {
 
 TrackRepository.prototype.findLocation = function(locationPath) {
 	var baseLocation = this._getBaseLocation();
-	if (!locationPath || locationPath == '/') {
+	if (!locationPath || locationPath === '/') {
 		return baseLocation;
 	}
 	return baseLocation.findLocation(locationPath);
