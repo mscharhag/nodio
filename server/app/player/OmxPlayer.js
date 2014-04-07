@@ -28,16 +28,18 @@ OmxPlayer.prototype.play = function(track) {
 	if (this._state === PLAYING || this._state === PAUSED) {
 		this._doAction('stop');
 	}
+	this._state = PLAYING;
 	this._preparePipe();
-	var trackPath = track.getResourcePath();
+	var trackPath = '"' +  track.getResourcePath() + '"'
 	var volume = '--vol ' + this._toMillibels(this._volume) + ' ';
-	this._exec('omxplayer ' + volume + trackPath + ' < ' + pipe, function(err, stdout, stderr) {
+	var cmd = 'omxplayer ' + volume + trackPath + ' < ' + pipe
+	this._exec(cmd, function(err, stdout, stderr) {
 		console.log('err: ' + err);
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
 	});
 	this._exec('echo . > ' + pipe);
-	this._state = PLAYING;
+
 	console.log('playing track ' + trackPath);
 };
 
