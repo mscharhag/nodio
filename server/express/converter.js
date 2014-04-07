@@ -7,6 +7,12 @@ var playerUrl = app.config.playerUrl;
 var mapping = {};
 
 mapping.TrackLocation = function(location) {
+	var links = {
+		self : locationsUrl + location.getPath()
+	}
+	if (location.getParent()) {
+		link.parent = locationsUrl + location.getParent().getPath();
+	}
 	return {
 		name : location.getName(),
 		locations : _.map(location.getLocations(), function(subLocation) {
@@ -18,9 +24,7 @@ mapping.TrackLocation = function(location) {
 			}
 		}),
 		tracks : _.map(location.getTracks(), mapping.Track),
-		links : {
-			self : locationsUrl + location.getPath()
-		}
+		links : links
 	}
 }
 
