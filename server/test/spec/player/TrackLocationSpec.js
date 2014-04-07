@@ -20,6 +20,12 @@ describe('Location tests', function() {
 		trackSubA1 = new Track(subLocationA, 'track-sub-a1');
 	});
 
+	it('should return the correct parent', function() {
+		expect(baseLocation.getParent()).toEqual(null);
+		expect(locationA.getParent()).toEqual(baseLocation);
+		expect(subLocationA.getParent()).toEqual(locationA);
+	})
+
 	it('should return the correction location path', function() {
 		expect(baseLocation.getPath()).toEqual('/');
 		expect(locationA.getPath()).toEqual('/a');

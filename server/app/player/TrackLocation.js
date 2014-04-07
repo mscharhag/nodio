@@ -13,6 +13,10 @@ function TrackLocation(parent, name, resourcePath) {
 	}
 }
 
+TrackLocation.prototype.getParent = function() {
+	return this._parent;
+}
+
 TrackLocation.prototype.getName = function() {
 	return this._name;
 }
