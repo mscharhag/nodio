@@ -1,7 +1,7 @@
 'use strict';
 var app = require('../../../app/app.js');
 
-var tracks = rek('routes/tracks.js'),
+var tracks = rek('express/controller/tracks.js'),
 	TrackLocation = rek('TrackLocation');
 
 describe('tracks tests', function() {
@@ -22,7 +22,7 @@ describe('tracks tests', function() {
 		}
 		var res = { dto: function() {} }
 
-		tracks.list({ url: '/locations' }, res);
+		tracks.locations({ url: '/locations' }, res);
 		expect(locationPath).toEqual('/');
 
 	});

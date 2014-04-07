@@ -1,7 +1,7 @@
 'use strict';
 var app = require('../../../app/app.js');
 
-var player = rek('routes/player.js');
+var player = rek('express/controller/player.js');
 
 describe('player tests', function() {
 
@@ -16,7 +16,12 @@ describe('player tests', function() {
 		app.audioPlayer = {
 			play : function(track) { calls.push({action: 'play', track: track}); },
 			pause : function() { calls.push({ action: 'pause'}); },
-			stop : function() { calls.push({ action: 'stop'}); }
+			stop : function() { calls.push({ action: 'stop'}); },
+			canPause : function() { return true },
+			canUnpause : function() { return true },
+			canStop : function() { return true },
+			getState : function() { return {} },
+			getVolume : function() { return 5 }
 		}
 		res = {
 			json : function(obj) {

@@ -34,7 +34,7 @@ describe('OmxPlayer tests', function() {
 		player.play(test.track('/foo/bar/baz.mp3'));
 		expect(_.isEqual(cmds, [
 			'mkfifo ' + pipe,
-			'omxplayer --vol -3000 /foo/bar/baz.mp3 < ' + pipe,
+			'omxplayer --vol -3000 "/foo/bar/baz.mp3" < ' + pipe,
 			'echo . > ' + pipe
 		])).toBeTruthy();
 		expect(player.getState()).toEqual('playing');
@@ -47,7 +47,7 @@ describe('OmxPlayer tests', function() {
 		expect(_.isEqual(cmds, [
 			'echo -n q > ' + pipe,
 			'dd if=' + pipe + ' iflag=nonblock of=/dev/null',
-			'omxplayer --vol -3000 /foo/bar/baz.mp3 < ' + pipe,
+			'omxplayer --vol -3000 "/foo/bar/baz.mp3" < ' + pipe,
 			'echo . > ' + pipe
 		])).toBeTruthy();
 		expect(player.getState()).toEqual('playing');
@@ -60,7 +60,7 @@ describe('OmxPlayer tests', function() {
 		player.play(test.track('/foo/bar/baz.mp3'));
 		expect(_.isEqual(cmds, [
 			'mkfifo ' + pipe,
-			'omxplayer --vol -4500 /foo/bar/baz.mp3 < ' + pipe,
+			'omxplayer --vol -4500 "/foo/bar/baz.mp3" < ' + pipe,
 			'echo . > ' + pipe
 		])).toBeTruthy();
 		expect(player.getState()).toEqual('playing');
