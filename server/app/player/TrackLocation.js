@@ -15,11 +15,11 @@ function TrackLocation(parent, name, resourcePath) {
 
 TrackLocation.prototype.getParent = function() {
 	return this._parent;
-}
+};
 
 TrackLocation.prototype.getName = function() {
 	return this._name;
-}
+};
 
 TrackLocation.prototype.getPath = function() {
 	if (!this._parent) {
@@ -34,23 +34,23 @@ TrackLocation.prototype.getPath = function() {
 
 TrackLocation.prototype.getResourcePath = function () {
 	return this._resourcePath;
-}
+};
 
 TrackLocation.prototype.getLocations = function() {
 	return this._locations
-}
+};
 
 TrackLocation.prototype.getTracks = function() {
 	return this._tracks;
-}
+};
 
 TrackLocation.prototype.addTrack = function(track) {
 	this._tracks.push(track);
-}
+};
 
 TrackLocation.prototype.addLocation = function(location) {
 	this._locations.push(location);
-}
+};
 
 TrackLocation.prototype.getLocation = function(locationName) {
 	if (!locationName) {
@@ -59,7 +59,7 @@ TrackLocation.prototype.getLocation = function(locationName) {
 	return _.find(this._locations, function(location) {
 		return location.getName() === locationName;
 	});
-}
+};
 
 TrackLocation.prototype.findLocation = function(locationPath) {
 	if (!locationPath) {
@@ -77,7 +77,7 @@ TrackLocation.prototype.findLocation = function(locationPath) {
 		location = location.getLocation(locationNames[i]);
 	}
 	return location;
-}
+};
 
 TrackLocation.prototype.findTrack = function(trackPath) {
 	if (!trackPath) {
@@ -87,7 +87,7 @@ TrackLocation.prototype.findTrack = function(trackPath) {
 	var trackName = trackPath.substring(trackPath.lastIndexOf('/') + 1);
 	var location = this.findLocation(locationPath);
 	return location ? location.getTrack(trackName) : null;
-}
+};
 
 TrackLocation.prototype.getTrack = function(trackName) {
 	if (!trackName) {
@@ -96,8 +96,7 @@ TrackLocation.prototype.getTrack = function(trackName) {
 	return _.find(this._tracks, function(track) {
 		return track.getName() === trackName;
 	})
-}
-
+};
 
 
 

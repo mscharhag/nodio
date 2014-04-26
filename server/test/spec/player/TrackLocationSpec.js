@@ -78,5 +78,6 @@ describe('Location tests', function() {
 		expect(baseLocation.findTrack('/')).toEqual(null);
 		expect(baseLocation.findTrack('')).toEqual(null);
 		expect(baseLocation.findTrack()).toEqual(null);
-	})
+	});
+
 });
