@@ -11,7 +11,7 @@ mapping.TrackLocation = function(location) {
 		self : locationsUrl + location.getPath()
 	}
 	if (location.getParent()) {
-		link.parent = locationsUrl + location.getParent().getPath();
+		links.parent = locationsUrl + location.getParent().getPath();
 	}
 	return {
 		name : location.getName(),
