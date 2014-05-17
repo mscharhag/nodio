@@ -106,8 +106,12 @@ OmxPlayer.prototype.getState = function() {
 	return this._state;
 };
 
-Omxplayer.prototype.getCurrentTrack = function() {
+OmxPlayer.prototype.getCurrentTrack = function() {
 	return this._currentTrack;
 };
+
+OmxPlayer.prototype.getPlaybackPolicy = function() {
+	return this._playbackPolicy;
+}
 
 module.exports = OmxPlayer;
