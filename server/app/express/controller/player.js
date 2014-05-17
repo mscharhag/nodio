@@ -35,25 +35,8 @@ exports.setStatus = function(req, res) {
 }
 
 var getStatus = exports.getStatus = function(req, res) {
-	var player = app.audioPlayer;
-	var links = {
-		self : '/player'
-	};
-	if (player.canPause()) {
-		links.pause = '/player?action=pause';
-	}
-	if (player.canUnpause()) {
-		links.unpause = '/player?action=unpause';
-	}
-	if (player.canStop()) {
-		links.stop = '/player?action=stop';
-	}
-	res.json({
-		state : player.getState(),
-		volume : player.getVolume(),
-		links : links
-	})
-}
+	res.dto(app.audioPlayer);
+};
 
 
 var play = exports.play = function(req, res) {
