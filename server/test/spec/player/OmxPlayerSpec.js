@@ -32,7 +32,11 @@ describe('OmxPlayer tests', function() {
 		it('should pass the correct path and volume to the CLI', function() {
 			player.setVolume(5);
 			player.play(track);
-			expect(cli.play).toHaveBeenCalledWith('/foo/bar/baz.mp3', 5)
+
+			var args = cli.play.argsForCall[0];
+			expect(args[0]).toEqual('/foo/bar/baz.mp3');
+			expect(args[1]).toEqual(5);
+			expect(typeof args[2]).toEqual('function');
 		});
 
 		it('should stop the track that is currently played before playing the new track', function() {
@@ -233,6 +237,47 @@ describe('OmxPlayer tests', function() {
 				expect(player.getVolume()).toEqual(5);
 			});
 		});
+	});
+
+	describe('when playback of a track is finished', function() {
+
+		var track = test.track('/foo/bar.mp3');
+
+		beforeEach(function() {
+			spyOn(player, 'play');
+		});
+
+		it('should pass the current track to the playback policy', function() {
+			var policy = { getNextTrack : function() {}};
+			spyOn(policy, 'getNextTrack');
+
+			player._currentTrack = track;
+			player.setPlaybackPolicy(policy);
+			player._onPlaybackComplete();
+
+			expect(policy.getNextTrack).toHaveBeenCalledWith(track);
+		});
+
+		it('should play the next track provided by the playback policy', function() {
+			player.setPlaybackPolicy({
+				getNextTrack : function() {
+					return track;
+				}
+			});
+			player._onPlaybackComplete();
+			expect(player.play).toHaveBeenCalledWith(track);
+		});
+
+		it('should do nothing if the playback policy does not provide a new track', function() {
+			player.setPlaybackPolicy({
+				getNextTrack : function() {
+					return null;
+				}
+			});
+			player._onPlaybackComplete();
+			expect(player.play.calls).toEqual([])
+		});
+
 	});
 
 });

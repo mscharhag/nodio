@@ -14,16 +14,12 @@ var actions = {
 
 var pipe = '/ramdisk/omxplayer'; // TODO: get from config?
 
-exports.play = function(trackPath, volume) {
+exports.play = function(trackPath, volume, onPlaybackFinished) {
 	preparePipe();
 	var trackPath = '"' +  trackPath + '"'
 	var volume = '--vol ' + convertToMillibels(volume) + ' ';
 	var cmd = 'omxplayer ' + volume + trackPath + ' < ' + pipe
-	exports.execute(cmd, function(err, stdout, stderr) {
-		console.log('err: ' + err);
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-	});
+	exports.execute(cmd, onPlaybackFinished);
 	exports.execute('echo . > ' + pipe);
 };
 

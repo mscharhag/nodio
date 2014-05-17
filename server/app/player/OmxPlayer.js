@@ -1,7 +1,8 @@
 'use strict';
 
 var errors = rek('errors'),
-	cli = rek('OmxPlayerCli');
+	cli = rek('OmxPlayerCli'),
+	LocationBasedPlaybackPolicy = rek('LocationBasedPlaybackPolicy');
 
 var PAUSED = 'paused',
 	STOPPED = 'stopped',
@@ -10,6 +11,8 @@ var PAUSED = 'paused',
 function OmxPlayer() {
 	this._volume = 10; // ranges from 0 to 20
 	this._state = STOPPED;
+	this._playbackPolicy = new LocationBasedPlaybackPolicy();
+	this._currentTrack = null;
 }
 
 OmxPlayer.prototype.play = function(track) {
@@ -17,8 +20,19 @@ OmxPlayer.prototype.play = function(track) {
 		cli.stop();
 	}
 	this._state = PLAYING;
-	cli.play(track.getResourcePath(), this._volume);
+	cli.play(track.getResourcePath(), this._volume, _.bind(this._onPlaybackComplete, this));
+	this._currentTrack = track;
 	console.log('playing track ' + track.getResourcePath());
+};
+
+OmxPlayer.prototype._onPlaybackComplete = function(err, stdout, stderr) {
+	var nextTrack = this._playbackPolicy.getNextTrack(this._currentTrack);
+	console.log('next track: ', nextTrack);
+	if (nextTrack) {
+		this.play(nextTrack);
+		return;
+	}
+	this._currentTrack = null; // TODO: test?
 };
 
 OmxPlayer.prototype.pause = function() {
@@ -79,12 +93,21 @@ OmxPlayer.prototype.setVolume = function(value) {
 	console.log('volume changed to ' + this._volume);
 };
 
+OmxPlayer.prototype.setPlaybackPolicy = function(policy) {
+	assert(policy && typeof policy.getNextTrack === 'function');
+	this._playbackPolicy = policy;
+};
+
 OmxPlayer.prototype.getVolume = function() {
 	return this._volume;
 };
 
 OmxPlayer.prototype.getState = function() {
 	return this._state;
+};
+
+Omxplayer.prototype.getCurrentTrack = function() {
+	return this._currentTrack;
 };
 
 module.exports = OmxPlayer;
