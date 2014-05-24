@@ -1,14 +1,14 @@
 'use strict';
 
 var app = rek('app'),
-	tracks = rek('tracks'),
+	locationController = rek('locationController'),
 	player = rek('player');
 
 var locationsUrl = app.config.locationsUrl
 var playerUrl = app.config.playerUrl
 
 var server = app.server;
-server.get(locationsUrl + '**', tracks.locations);
+server.get(locationsUrl + '**', locationController.getLocation);
 
 
 
