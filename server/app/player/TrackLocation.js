@@ -30,7 +30,7 @@ TrackLocation.prototype.getPath = function() {
 		return parentPath + this.getName();
 	}
 	return parentPath + '/' + this.getName();
-}
+};
 
 TrackLocation.prototype.getResourcePath = function () {
 	return this._resourcePath;
