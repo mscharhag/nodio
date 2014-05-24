@@ -31,7 +31,8 @@ exports.setStatus = function(req, res) {
 		}
 		app.audioPlayer.setVolume(parseInt(volume));
 	}
-	getStatus(req, res);
+	res.json({success: true});
+//	getStatus(req, res);
 }
 
 var getStatus = exports.getStatus = function(req, res) {
