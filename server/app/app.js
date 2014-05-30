@@ -5,8 +5,8 @@ global.rek = require('rekuire');
 global._ = rek('lodash');
 global.assert = rek('assert');
 
-rek('extensions')
-
+rek('extensions');
+rek('logging');
 
 var TrackScanner = rek('TrackScanner'),
 	TrackRepository = rek('TrackRepository'),
@@ -29,5 +29,3 @@ app.audioPlayer = new OmxPlayer();
 //app.audioPlayer._exec = function(cmd, cb) {
 //	console.log('exec: ' + cmd);
 //}
-
-console.log('app.js complete')

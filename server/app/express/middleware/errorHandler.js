@@ -11,7 +11,7 @@ statusCodes[errors.CODE_INVALID_STATE] = 400;
 module.exports = function() {
 	return function(err, req, res, next) {
 		if (err) {
-			console.log('err: ' + err.stack)
+			log.error('Error: ' + err.stack, err);
 			if (err instanceof errors.Error) {
 				var code = statusCodes[err.code];
 				res.json(code, {code: err.code, message: err.message})

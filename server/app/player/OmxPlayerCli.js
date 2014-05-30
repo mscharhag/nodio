@@ -60,7 +60,7 @@ var pushToPipe = exports.pushToPipe = function(key) {
 
 exports.execute = function(cmd, cb) {
 	cp.exec(cmd, cb);
-	console.log('executed/: ' + cmd)
+	log.debug('Executed command: ' + cmd);
 };
 
 var convertToMillibels = exports.convertToMillibels = function(value) {

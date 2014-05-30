@@ -22,12 +22,11 @@ OmxPlayer.prototype.play = function(track) {
 	this._state = PLAYING;
 	cli.play(track.getResourcePath(), this._volume, _.bind(this._onPlaybackComplete, this));
 	this._currentTrack = track;
-	console.log('playing track ' + track.getResourcePath());
+	log.info('playing track ' + track.getResourcePath());
 };
 
 OmxPlayer.prototype._onPlaybackComplete = function(err, stdout, stderr) {
 	var nextTrack = this._playbackPolicy.getNextTrack(this._currentTrack);
-	console.log('next track: ', nextTrack);
 	if (nextTrack) {
 		this.play(nextTrack);
 		return;
@@ -90,7 +89,7 @@ OmxPlayer.prototype.setVolume = function(value) {
 			cli.decreaseVolume();
 		}
 	}
-	console.log('volume changed to ' + this._volume);
+	log.info('Volume changed to ' + this._volume);
 };
 
 OmxPlayer.prototype.setPlaybackPolicy = function(policy) {
