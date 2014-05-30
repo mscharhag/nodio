@@ -1,6 +1,8 @@
 'use strict';
 
 var app = rek('app'),
+	LocationBasedPlaybackPolicy = rek('LocationBasedPlaybackPolicy'),
+	TrackBasedPlaybackPolicy = rek('TrackBasedPlaybackPolicy'),
 	errors = rek('errors');
 
 
@@ -12,6 +14,7 @@ exports.getStatus = function(req, res) {
 exports.updateStatus = function(req, res) {
 	performActionIfProvided(req, res);
 	updateVolumeIfProvided(req, res);
+	updatePlaybackPolicyIfProvided(req, res);
 	res.json({success: true});
 };
 
@@ -55,4 +58,33 @@ function playTrack(req, res) {
 		throw errors.trackNotFound(trackPath)
 	}
 	app.audioPlayer.play(track);
+}
+
+function updatePlaybackPolicyIfProvided(req, res) {
+	var type = req.query['playback-type'];
+	var isRepeating = req.query['playback-isRepeating'];
+	var isShuffling = req.query['playback-isShuffling'];
+
+	if (!type && isRepeating === undefined && isShuffling === undefined) {
+		return;
+	}
+
+	app.audioPlayer.setPlaybackPolicy(createNewPlaybackPolicy(req, res));
+}
+
+function createNewPlaybackPolicy(req, res) {
+	var type = req.query['playback-type'];
+	var repeat = req.bool('playback-isRepeating', true);
+	var shuffle = req.bool('playback-isShuffling', false);
+
+	if (type === 'location') {
+		return new LocationBasedPlaybackPolicy(shuffle, repeat);
+	}
+	if (type === 'track') {
+		if (req.query['playback-isShuffling']) {
+			throw errors.illegalArgument('Parameter "playback-isShuffling" is not allowed if "playback-type" is "track"');
+		}
+		return new TrackBasedPlaybackPolicy(repeat);
+	}
+	throw errors.illegalArgument('Parameter "playback-type" has to be "location" or "track".');
 }

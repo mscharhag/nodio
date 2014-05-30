@@ -4,11 +4,12 @@ var app = require('./app/app'),
 	http = require('http'),
 	express = rek('express'),
 	dto = rek('dto'),
+	reqUtils = rek('request-util'),
 	errorHandler = rek('errorHandler');
 
 var server = app.server = express();
 
-server.set('port', process.env.PORT || 3000);
+server.set('port', process.env.PORT || 3001);
 server.set('view engine', 'ejs');
 server.use(express.favicon());
 server.use(express.logger('dev'));
@@ -16,6 +17,7 @@ server.use(express.json());
 server.use(express.urlencoded());
 server.use(express.methodOverride());
 server.use(dto());
+server.use(reqUtils());
 server.use(server.router);
 server.use(errorHandler());
 
