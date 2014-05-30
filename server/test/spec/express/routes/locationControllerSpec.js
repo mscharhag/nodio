@@ -3,6 +3,7 @@ var app = require('../../../../app/app.js');
 
 var controller = rek('locationController'),
 	TrackLocation = rek('TrackLocation'),
+	errors = rek('errors'),
 	test = rek('test');
 
 describe('tracks tests', function() {
@@ -24,7 +25,7 @@ describe('tracks tests', function() {
 		spyOn(app.trackRepository, 'findLocation').andReturn(null);
 		expect(function() {
 			controller.getLocation({ url: '/locations/foo' }, res);
-		}).toFail(1004, 'Location "/foo" not found');
+		}).toFail(errors.CODE_LOCATION_NOT_FOUND, 'Location "/foo" not found');
 	});
 
 	describe('when resolving the track location path from the url', function() {

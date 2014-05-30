@@ -3,6 +3,7 @@ var app = require('../../../../app/app.js');
 
 var controller = rek('playerController'),
 	Track = rek('Track'),
+	errors = rek('errors'),
 	OmxPlayer = rek('OmxPlayer'),
 	LocationBasedPlaybackPolicy = rek('LocationBasedPlaybackPolicy'),
 	TrackBasedPlaybackPolicy = rek('TrackBasedPlaybackPolicy'),
@@ -49,7 +50,7 @@ describe('player tests', function() {
 		req.query.action = 'foo';
 		expect(function() {
 			controller.updateStatus(req, res);
-		}).toFail(1003, '"foo" is not a valid action');
+		}).toFail(errors.CODE_ILLEGAL_ARGUMENT, '"foo" is not a valid action');
 	});
 
 	describe('when a track should be played', function() {
@@ -69,7 +70,7 @@ describe('player tests', function() {
 			req.query.action = 'play';
 			expect(function() {
 				controller.updateStatus(req, res);
-			}).toFail(1003, 'Parameter "track" is required for action "play"');
+			}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "track" is required for action "play"');
 		});
 
 		it('should fail if the trackRepository returns no track for the passed track parameter', function() {
@@ -78,7 +79,7 @@ describe('player tests', function() {
 			spyOn(app.trackRepository, 'getTrack').andReturn(null);
 			expect(function() {
 				controller.updateStatus(req, res);
-			}).toFail(1001, 'Track "/foo/bar.mp3" not found');
+			}).toFail(errors.CODE_TRACK_NOT_FOUND, 'Track "/foo/bar.mp3" not found');
 		});
 	});
 
@@ -95,7 +96,7 @@ describe('player tests', function() {
 			spyOn(app.audioPlayer, 'setVolume');
 			expect(function() {
 				controller.updateStatus(req, res);
-			}).toFail(1003, 'Volume has to be a number');
+			}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Volume has to be a number');
 		});
 	});
 
@@ -164,31 +165,31 @@ describe('player tests', function() {
 			it('should fail if an invalid value for "playback-type" is passed', function() {
 				expect(function() {
 					controller.updateStatus(req.withPlayback('test'), res);
-				}).toFail(1003, 'Parameter "playback-type" has to be "location" or "track".');
+				}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "playback-type" has to be "location" or "track".');
 			});
 
 			it('should fail if an invalid value for "playback-isRepeating" is passed', function() {
 				expect(function() {
 					controller.updateStatus(req.withPlayback('track', undefined, 'foo'), res);
-				}).toFail(1003, 'Parameter "playback-isRepeating" has to be "true" or "false".');
+				}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "playback-isRepeating" has to be "true" or "false".');
 			});
 
 			it('should fail if an invalid value for "playback-isShuffling" is passed', function() {
 				expect(function() {
 					controller.updateStatus(req.withPlayback('track', 'foo'), res);
-				}).toFail(1003, 'Parameter "playback-isShuffling" has to be "true" or "false".');
+				}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "playback-isShuffling" has to be "true" or "false".');
 			});
 
 			it('should fail if a value "playback-isShuffling" is passed when "playback-type" is "track"', function() {
 				expect(function() {
 					controller.updateStatus(req.withPlayback('track', 'true', 'true'), res);
-				}).toFail(1003, 'Parameter "playback-isShuffling" is not allowed if "playback-type" is "track"');
+				}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "playback-isShuffling" is not allowed if "playback-type" is "track"');
 			});
 
 			it('should fail if "playback-isShuffling" or "playback-isRepeating" is used with "playback-type"', function() {
 				expect(function() {
 					controller.updateStatus(req.withPlayback(undefined, 'true', 'true'), res);
-				}).toFail(1003, 'Parameter "playback-type" has to be "location" or "track".');
+				}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Parameter "playback-type" has to be "location" or "track".');
 			});
 		});
 

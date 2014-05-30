@@ -80,14 +80,14 @@ describe('OmxPlayer tests', function() {
 			player._state = 'paused';
 			expect(function() {
 				player.pause();
-			}).toFail(1002, 'Cannot pause player. Player is not playing.');
+			}).toFail(errors.CODE_INVALID_STATE, 'Cannot pause player. Player is not playing.');
 		});
 
 		it('should fail if the player is stopped', function() {
 			player._state = 'stopped';
 			expect(function() {
 				player.pause();
-			}).toFail(1002, 'Cannot pause player. Player is not playing.');
+			}).toFail(errors.CODE_INVALID_STATE, 'Cannot pause player. Player is not playing.');
 		});
 	});
 
@@ -113,14 +113,14 @@ describe('OmxPlayer tests', function() {
 			player._state = 'playing';
 			expect(function() {
 				player.unpause();
-			}).toFail(1002, 'Cannot unpause player. Player is not paused');
+			}).toFail(errors.CODE_INVALID_STATE, 'Cannot unpause player. Player is not paused');
 		});
 
 		it('should fail if the player is stopped', function() {
 			player._state = 'stopped';
 			expect(function() {
 				player.unpause();
-			}).toFail(1002, 'Cannot unpause player. Player is not paused');
+			}).toFail(errors.CODE_INVALID_STATE, 'Cannot unpause player. Player is not paused');
 		});
 	});
 
@@ -146,7 +146,7 @@ describe('OmxPlayer tests', function() {
 			player._state = 'stopped';
 			expect(function() {
 				player.stop();
-			}).toFail(1002, 'Cannot stop player. Player is already stopped');
+			}).toFail(errors.CODE_INVALID_STATE, 'Cannot stop player. Player is already stopped');
 		});
 
 	});
@@ -163,19 +163,19 @@ describe('OmxPlayer tests', function() {
 		it('should fail if a negative value is passed', function() {
 			expect(function() {
 				player.setVolume(-1);
-			}).toFail(1003, 'Volume has to be a number between 0 and 20.');
+			}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Volume has to be a number between 0 and 20.');
 		});
 
 		it('should fail if the passed value is too high', function() {
 			expect(function() {
 				player.setVolume(21);
-			}).toFail(1003, 'Volume has to be a number between 0 and 20.');
+			}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Volume has to be a number between 0 and 20.');
 		});
 
 		it('should fail if no number is passed', function() {
 			expect(function() {
 				player.setVolume('foo');
-			}).toFail(1003, 'Volume has to be a number between 0 and 20.');
+			}).toFail(errors.CODE_ILLEGAL_ARGUMENT, 'Volume has to be a number between 0 and 20.');
 		});
 
 		describe('when the player is stopped', function() {
