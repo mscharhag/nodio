@@ -1,11 +1,12 @@
 'use strict';
 
-var app = rek('app');
+var conf = {};
 
-var config = module.exports = {};
+conf.trackDirectory = 'test/files';
 
-config.trackDirectory = 'test/files'
+conf.playerUrl = '/player';
+conf.locationsUrl = '/locations';
+conf.port = 3000;
 
-config.playerUrl = '/player'
-config.tracksUrl = '/tracks'
-config.locationsUrl = '/locations'
+
+module.exports = conf;

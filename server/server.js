@@ -1,15 +1,16 @@
 'use strict';
-//"speaker": "0.0.10",
 var app = require('./app/app'),
 	http = require('http'),
 	express = rek('express'),
 	dto = rek('dto'),
 	reqUtils = rek('request-util'),
+	config = rek('config'),
+	response = rek('response'),
 	errorHandler = rek('errorHandler');
 
 var server = app.server = express();
 
-server.set('port', process.env.PORT || 3001);
+server.set('port', config.port);
 server.set('view engine', 'ejs');
 server.use(express.favicon());
 server.use(express.logger('dev'));
@@ -19,6 +20,7 @@ server.use(express.methodOverride());
 server.use(dto());
 server.use(reqUtils());
 server.use(server.router);
+server.use(response());
 server.use(errorHandler());
 
 // development only
@@ -29,7 +31,6 @@ server.use(errorHandler());
 
 
 rek('routes');
-
 http.createServer(server).listen(server.get('port'), function(){
   console.log('Express server listening on port ' + server.get('port'));
 });
