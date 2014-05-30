@@ -1,14 +1,12 @@
 {
-	"name": "application-name",
-	"version": "0.0.1",
+	"name": "nodio-server",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"start": "node server.js"
 	},
 	"dependencies": {
 		"express": "3.4.8",
-		"ejs": "*",
-		"lame": "1.0.3",
 		"lodash": "2.4.1",
 		"rekuire": "0.1.5"
 	},
