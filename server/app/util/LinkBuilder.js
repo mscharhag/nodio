@@ -7,7 +7,7 @@ function LinkBuilder(baseUrl) {
 
 LinkBuilder.prototype.self = function(url) {
 	url = url || '';
-	if (_.endsWith(url, '/')) {
+	if (this._baseUrl.length > 0 && _.endsWith(url, '/')) { // TODO: fix duplication
 		url = url.substring(0, url.lengths - 1);
 	}
 	this._links.self = this._baseUrl + url;
@@ -20,7 +20,7 @@ LinkBuilder.prototype.add = function(name, url, options) {
 	if (typeof url === 'function') {
 		url = url();
 	}
-	if (_.endsWith(url, '/')) {
+	if (this._baseUrl.length > 0 && _.endsWith(url, '/')) { // TODO: fix duplication
 		url = url.substring(0, url.lengths - 1);
 	}
 	this._links[name] = urlPrefix + url;
