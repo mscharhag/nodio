@@ -2,12 +2,15 @@
 
 var app = rek('app'),
 	locationController = rek('locationController'),
-	playerController = rek('playerController');
+	playerController = rek('playerController'),
+	rootController = rek('rootController');
 
 var locationsUrl = app.config.locationsUrl;
 var playerUrl = app.config.playerUrl;
 
 var server = app.server;
+
+server.get('/', rootController.getStatus);
 
 server.get(locationsUrl + '**', locationController.getLocation);
 

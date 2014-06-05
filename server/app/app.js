@@ -1,6 +1,8 @@
 
 var app = module.exports = {};
 
+app.pkg = require('../package.json');
+
 global.rek = require('rekuire');
 global._ = rek('lodash');
 global.assert = rek('assert');
