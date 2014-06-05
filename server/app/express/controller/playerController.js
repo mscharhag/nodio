@@ -15,7 +15,7 @@ exports.updateStatus = function(req, res) {
 	performActionIfProvided(req, res);
 	updateVolumeIfProvided(req, res);
 	updatePlaybackPolicyIfProvided(req, res);
-	res.json({success: true});
+	exports.getStatus(req, res);
 };
 
 
