@@ -11,8 +11,7 @@ var server = app.server = express();
 
 server.set('port', config.port);
 server.set('view engine', 'ejs');
-server.use(express.favicon());
-server.use(express.logger('dev'));
+server.use(express.logger(/*'dev'*/));
 server.use(express.json());
 server.use(express.urlencoded());
 server.use(express.methodOverride());
