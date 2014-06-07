@@ -7,11 +7,9 @@ module.exports = function() {
 		res.dto = function(obj) {
 			res.json(mapToDto(obj));
 		};
-		res.header('Access-Control-Allow-Origin', '*' /* 'http://192.168.1.8:3000' */)
-		res.header('Access-Control-Allow-Methods', 'POST, GET')
 		next();
 	}
-}
+};
 
 function mapToDto(obj) {
 	var type = typeof obj;
@@ -24,4 +22,4 @@ function mapToDto(obj) {
 	var conversionFunc = mapping[className];
 	assert(conversionFunc, 'No conversion function found for ' + className);
 	return conversionFunc(obj);
-};
+}
