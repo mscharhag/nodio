@@ -2,7 +2,7 @@
 
 var conf = {};
 
-conf.trackDirectory = 'test/files';
+conf.trackDirectory = '/path/to/your/music/directory';
 
 conf.playerUrl = '/player';
 conf.locationsUrl = '/locations';

@@ -1,5 +1,5 @@
 'use strict';
-require('../../../app/app.js');
+require('../../test.js');
 
 var TrackLocation = rek('TrackLocation'),
 	Track = rek('Track');

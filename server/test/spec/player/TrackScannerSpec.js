@@ -1,6 +1,7 @@
 'use strict';
+require('../../test.js');
 
-var app = require('../../../app/app.js'),
+var app = rek('app'),
 	TrackScanner = rek('TrackScanner'),
 	TrackLocation = rek('TrackLocation'),
 	Track = rek('Track');
@@ -8,7 +9,7 @@ var app = require('../../../app/app.js'),
 describe('TrackScanner tests', function() {
 
 	var trackScanner;
-	var testFiles = 'test/files'
+	var testFiles = 'test/files';
 
 	var testStruct = {
 		path : testFiles,

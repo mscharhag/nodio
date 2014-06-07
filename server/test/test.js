@@ -1,4 +1,7 @@
 'use strict';
+var config = require('../config.js');
+config.trackDirectory = 'test/files';
+require('../app/app.js');
 
 var Track = rek('Track'),
 	TrackLocation = rek('TrackLocation');

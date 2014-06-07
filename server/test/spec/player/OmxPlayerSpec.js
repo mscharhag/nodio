@@ -1,7 +1,6 @@
 'use strict';
-
-var app = require('../../../app/app.js'),
-	test = rek('test'),
+var test = require('../../test.js');
+var app = rek('app'),
 	cli = rek('OmxPlayerCli'),
 	errors = rek('errors'),
 	OmxPlayer = rek('OmxPlayer');

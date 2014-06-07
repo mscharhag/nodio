@@ -1,6 +1,8 @@
 'use strict';
-var app = require('../../../../app/app.js');
-var errorHandler = rek('errorHandler'),
+require('../../../test.js');
+
+var app = rek('app.js'),
+	errorHandler = rek('errorHandler'),
 	errors = rek('errors');
 
 describe('errorHandler tests', function() {

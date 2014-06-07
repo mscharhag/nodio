@@ -1,5 +1,7 @@
 'use strict';
-var app = require('../../../app/app.js'),
+require('../../test.js');
+
+var app = rek('app'),
 	Track = rek('Track'),
 	TrackLocation = rek('TrackLocation'),
 	OmxPlayer = rek('OmxPlayer'),

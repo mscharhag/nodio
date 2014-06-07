@@ -1,10 +1,10 @@
 'use strict';
-var app = require('../../../../app/app.js');
+require('../../../test.js');
 
 var controller = rek('locationController'),
 	TrackLocation = rek('TrackLocation'),
 	errors = rek('errors'),
-	test = rek('test');
+	app = rek('app');
 
 describe('tracks tests', function() {
 

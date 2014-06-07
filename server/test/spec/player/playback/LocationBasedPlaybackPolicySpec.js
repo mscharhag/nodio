@@ -1,7 +1,7 @@
 'use strict';
+require('../../../test.js');
 
-var app = require('../../../../app/app.js'),
-	test = rek('test'),
+var app = rek('app'),
 	TrackLocation = rek('TrackLocation'),
 	Track = rek('Track'),
 	LocationBasedPlaybackPolicy = rek('LocationBasedPlaybackPolicy');

@@ -1,6 +1,7 @@
 'use strict';
+require('../../test.js');
 
-var app = require('../../../app/app.js'),
+var app = rek('app'),
 	test = rek('test'),
 	cli = rek('OmxPlayerCli'),
 	cp = rek('child_process'),

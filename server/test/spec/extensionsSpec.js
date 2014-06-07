@@ -1,5 +1,5 @@
 'use strict';
-var app = require('../../app/app.js');
+require('../test.js');
 
 describe('extension method tests', function() {
 

@@ -1,8 +1,10 @@
 'use strict';
-require('../../../app/express/express-setup.js');
+require('../../test.js');
 
+rek('express-setup.js');
 var app = rek('app'),
 	request = require('supertest');
+
 
 describe('integration tests for /locations/** urls', function() {
 

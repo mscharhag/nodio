@@ -1,9 +1,13 @@
 'use strict';
-require('../../../app/express/express-setup.js');
+require('../../test.js');
+
+rek('express-setup');
 var app = rek('app'),
 	OmxPlayer = rek('OmxPlayer'),
 	OmxPlayerCli = rek('OmxPlayerCli'),
 	request = require('supertest');
+
+
 
 describe('integration tests for /player', function() {
 

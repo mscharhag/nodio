@@ -1,5 +1,5 @@
 'use strict';
-var app = require('../../../../app/app.js');
+require('../../../test.js');
 
 var controller = rek('playerController'),
 	Track = rek('Track'),
@@ -9,7 +9,7 @@ var controller = rek('playerController'),
 	TrackBasedPlaybackPolicy = rek('TrackBasedPlaybackPolicy'),
 	TrackLocation = rek('TrackLocation'),
 	extensions = rek('request-util'),
-	test = rek('test');
+	app = rek('app');
 
 describe('player tests', function() {
 
