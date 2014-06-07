@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 'use strict';
 
 require('./app/express/express-setup.js');
