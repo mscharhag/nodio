@@ -4,7 +4,7 @@ var app = require('../app.js'),
 	dto = rek('dto'),
 	reqUtils = rek('request-util'),
 	config = rek('config'),
-	response = rek('response'),
+	responseTransformer = rek('responseTransformer'),
 	errorHandler = rek('errorHandler');
 
 var server = app.server = express();
@@ -17,8 +17,8 @@ server.use(express.urlencoded());
 server.use(express.methodOverride());
 server.use(dto());
 server.use(reqUtils());
+server.use(responseTransformer(app.config.corsDomains));
 server.use(server.router);
-server.use(response());
 server.use(errorHandler());
 
 // development only
