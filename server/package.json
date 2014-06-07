@@ -2,7 +2,7 @@
 	"name": "nodio-server",
 	"author": "Michael Scharhag",
 	"description": "Node audio server for controlling omxplayer using a REST API",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"scripts": {
 		"start": "node server.js"
 	},
