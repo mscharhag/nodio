@@ -10,6 +10,7 @@ NodioError.prototype.__proto__ = Error.prototype;
 
 exports.Error = NodioError;
 
+exports.CODE_UNKNOWN			= 1000;
 exports.CODE_INVALID_STATE 		= 1001;
 exports.CODE_ILLEGAL_ARGUMENT 	= 1002;
 exports.CODE_TRACK_NOT_FOUND 	= 1011;
