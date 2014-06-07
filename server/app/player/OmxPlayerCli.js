@@ -2,6 +2,7 @@
 
 var cp = rek('child_process'),
 	fs = rek('fs'),
+	config = rek('config'),
 	errors = rek('errors');
 
 var actions = {
@@ -12,13 +13,13 @@ var actions = {
 	'stop' : 'q'
 };
 
-var pipe = '/ramdisk/omxplayer'; // TODO: get from config?
+var pipe = config.player.pipeLoction;
 
 exports.play = function(trackPath, volume, onPlaybackFinished) {
 	preparePipe();
-	var trackPath = '"' +  trackPath + '"'
+	var trackPath = '"' +  trackPath + '"';
 	var volume = '--vol ' + convertToMillibels(volume) + ' ';
-	var cmd = 'omxplayer ' + volume + trackPath + ' < ' + pipe
+	var cmd = 'omxplayer ' + volume + trackPath + ' < ' + pipe;
 	exports.execute(cmd, onPlaybackFinished);
 	exports.execute('echo . > ' + pipe);
 };
@@ -66,7 +67,7 @@ exports.execute = function(cmd, cb) {
 var convertToMillibels = exports.convertToMillibels = function(value) {
 	// 0 -> -6000mB
 	// 20 -> 0mB
-	assert(typeof value === 'number')
+	assert(typeof value === 'number');
 	var millibel = (value - 20) * 300;
 	return Math.clamp(millibel, -6000, 0);
 }
