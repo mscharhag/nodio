@@ -1,0 +1,66 @@
+/*.grey {
+	background-color: #888;
+	border: 2px red solid;
+}
+
+.blue {
+	background-color: #66f;
+	border: 2px green solid;
+}*/
+
+.bordered {
+	border: 1px solid #eee;
+}
+
+.trackList ol {
+	list-style: none;
+	padding-left: 0px;
+}
+
+
+.player .volumeSlider {
+	margin-left: 210px;
+	vertical-align: middle;
+	height: 37px;
+}
+
+.player .slider.slider-horizontal {
+	width: 100%;
+	margin-top: 8px;
+}
+
+.volumeSlider .slider-track {
+	background-image: url(../images/volume.png);
+	background-position: bottom left;
+	background-size: 100% 100%;
+	background-color: inherit;
+	box-shadow: none;
+}
+
+.slider.slider-horizontal .slider-track {
+	height: 20px;
+	margin-top: 0;
+	top: 0;
+}
+
+.volumeSlider .slider.slider-horizontal .slider-handle {
+	margin-left: -5px;
+	margin-top: -1px;
+}
+
+.slider-handle {
+	opacity: 1;
+	border-radius: 2px;
+	background-image: linear-gradient(to bottom, #EEEEEE, #CCCCCC);
+	border: 1px solid #BBBBBB;
+	width: 10px;
+	height: 22px;
+}
+
+.volumeSlider .slider-selection {
+	display: none;
+}
+
+.playerActions {
+	float:left;
+}

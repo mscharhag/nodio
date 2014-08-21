@@ -1,4 +1,38 @@
+.player(ng-controller='playerController')
+	.row
+		.col-lg-12
+			p(ng-if='status.currentTrack') {{status.currentTrack.name}}
+	.row
+		.col-lg-12
+			.btn-group.playerActions
+				button.btn.btn-default
+					span.glyphicon.glyphicon-step-backward
+				button.btn.btn-default(ng-disabled='!status.links.unpause', ng-if='!status.links.pause', ng-click='action(status.links.unpause)')
+					span.glyphicon.glyphicon-play
+				button.btn.btn-default(ng-if='status.links.pause', ng-click='action(status.links.pause)')
+					span.glyphicon.glyphicon-pause
+				button.btn.btn-default(ng-disabled='!status.links.stop', ng-click='action(status.links.stop)')
+					span.glyphicon.glyphicon-stop
+				button.btn.btn-default
+					span.glyphicon.glyphicon-step-forward
+				button.btn.btn-default
+					span.glyphicon.glyphicon-step-forward
 
-	//
-   Created by michi on 07.06.2014.
-
+			.volumeSlider
+				p {{teste}}
+				slider(value='{{status.volume}}',
+						model="teste",
+						data-slider-orientation='horizontal',
+						data-slider-tooltip='hide',
+						data-slider-handle='square',
+						data-slider-min='0',
+						data-slider-max='20',
+						ng-slideStop='changeVolume($event.value)'
+					)
+				//input(type='text', value='{{status.volume}}',
+				//		data-slider-orientation='horizontal',
+				//		data-slider-tooltip='hide',
+				//		data-slider-handle='square',
+				//		data-slider-min='0',
+				//		data-slider-max='20'
+				//	).slider

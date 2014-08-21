@@ -51,16 +51,17 @@ html(ng-app='nodioClient')
 
 			.row
 				hr
-			.tracks.content(ng-controller='tracksController')
-				p.title Tracks
-				ol.list
-					li
-						a(href='#') ../
-					li(ng-repeat='location in locations')
-						a(ng-click='getLocation(location.links.self)', href='#', title='{{location.name}}') {{location.name}}/
-				ol.list
-					li(ng-repeat='track in tracks')
-						a(ng-click='play(track.links.play)', href='#', title='{{track.name}}') {{track.name}}
+			include trackList
+			//.tracks.content(ng-controller='tracksController')
+			//	p.title Tracks
+			//	ol.list
+			//		li
+			//			a(href='#') ../
+			//		li(ng-repeat='location in locations')
+			//			a(ng-click='getLocation(location.links.self)', href='#', title='{{location.name}}') {{location.name}}/
+			//	ol.list
+			//		li(ng-repeat='track in tracks')
+			//			a(ng-click='play(track.links.play)', href='#', title='{{track.name}}') {{track.name}}
 
 			.footer
 

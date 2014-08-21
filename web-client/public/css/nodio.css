@@ -1,0 +1,120 @@
+body {
+	background: #eee;
+}
+
+.content {
+	display: inline-block;
+	width: 100%;
+}
+
+
+.list {
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.list li {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.btn-group {
+	float: left;
+}
+
+.player .slider-volume {
+	overflow: hidden;
+	width: 118px;
+	float: right;
+	margin-top: 2px;
+}
+
+.player .slider-volume .slider {
+	width: 100px;
+	margin-top: 2px;
+}
+.player .slider-volume .glyphicon {
+	margin-left: 3px;
+	opacity: 0.7;
+}
+
+
+
+
+.container {
+	max-width: 250px;
+	background: #fff;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	color: #888;
+}
+
+hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+a {
+	font-size: 8pt;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+.player .slider-track {
+	background-color: #ddd;
+}
+
+.player .slider-track, .player .slider-selection {
+	background-image: none;
+	box-shadow: none;
+}
+
+.player .slider-selection {
+	background-color: #bbb;
+}
+
+.player .slider-handle {
+	opacity: 1;
+	background-color: #888;
+	background-image: none;
+	height: 8px;
+	width: 15px;
+}
+
+.player .slider-handle.round {
+	border-radius: 2px;
+}
+
+.player .slider.slider-horizontal {
+	width: 100%;
+}
+
+
+.volume-slider {
+	overflow: hidden;
+	padding-left: 10px;
+}
+
+.player .currentTime {
+	float: left;
+	font-size: 16pt;
+}
+
+.player .totalTime {
+	font-size: 10pt;
+	margin-left: 5px;
+	margin-top: 8px;
+	float: left;
+}
+
+*/

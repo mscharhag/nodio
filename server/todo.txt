@@ -1,0 +1,24 @@
+-Location tests + cleanup
+-Track tests + cleanup
+-TrackRepository Tests + cleanup
+-routes/locations -> tracks
+-routes/locations cleanup + tests
+-remove ip/username/pw from gruntfile
+
+
+---
+-"stop" führt zu nächstem policy track
+-next/previous actions
+-directories mit spaces?
+---
+-volume slider
+---
+
+-logging
+
+-wie deploybar machen?
+-installationsanleitung
+-api documentation
+
+res.header('Access-Control-Allow-Origin', '*' /* 'http://192.168.1.8:3000' */)
+res.header('Access-Control-Allow-Methods', 'POST, GET')

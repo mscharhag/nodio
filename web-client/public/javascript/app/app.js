@@ -1,3 +1,6 @@
-/**
- * Created by michi on 08.06.2014.
- */
+$(function() {
+//	$('.slider').slider().on('slideStop', function(ev){
+//		angular.element($('.player')).scope().changeVolume(ev.value);
+//	});
+	$('.slider').attr('style', '')
+});

@@ -1,4 +1,10 @@
-
-	//
-   Created by michi on 07.06.2014.
-
+.trackList(ng-controller='trackListController')
+	p.title Tracks
+	ol.list
+		li(ng-if='location.links.parent')
+			a(ng-click='getLocation(location.links.parent)', href='#') ../
+		li(ng-repeat='location in location.locations')
+			a(ng-click='getLocation(location.links.self)', href='#', title='{{location.name}}') {{location.name}}/
+	ol.list
+		li(ng-repeat='track in location.tracks')
+			a(ng-click='play(track.links.play)', href='#', title='{{track.name}}') {{track.name}}

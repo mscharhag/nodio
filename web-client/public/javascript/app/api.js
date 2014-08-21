@@ -7,15 +7,31 @@ nodioClient.factory('api', ['$http', '$rootScope', function ($http, $rootScope) 
 	api.onNewPlayerStatus = 'onNewPlayerStatus';
 	api.onRetrievedLocations = 'onRetrievedLocations';
 
-	var url = 'http://192.168.1.8:3000'
+	var url = 'http://192.168.1.8:3000';
 
-	api.action = function(path) {
-		$http.get(url + path).success(function(data, status, headers, config) {
+	api.getPlayerStatus = function() {
+		$http.get(url + '/player').success(function(data, status, headers, config) {
+			$rootScope.$emit(api.onNewPlayerStatus, {}, data)
+		}).error(function() {
+			alert('error')
+		})
+	};
+
+	api.playerAction = function(path) {
+		$http.post(url + path).success(function(data, status, headers, config) {
 			$rootScope.$emit(api.onNewPlayerStatus, {path: path}, data)
 		}).error(function() {
 			alert('error')
 		})
-	}
+	};
+
+	api.changeVolume = function(value) {
+		$http.post(url + '/player?volume=' + value).success(function(data, status, headers, config) {
+			$rootScope.$emit(api.onNewPlayerStatus, {}, data)
+		}).error(function() {
+			alert('error')
+		})
+	};
 
 	api.getLocations = function(locationPath, cb) {
 		locationPath = locationPath || '/locations';
@@ -25,7 +41,7 @@ nodioClient.factory('api', ['$http', '$rootScope', function ($http, $rootScope) 
 		}).error(function() {
 			alert('error')
 		})
-	}
+	};
 
 	api.play = function(trackPath, cb) {
 		$http.post(url + trackPath).success(function(data, status, headers, config) {
@@ -36,7 +52,7 @@ nodioClient.factory('api', ['$http', '$rootScope', function ($http, $rootScope) 
 		}).error(function() {
 			alert('error')
 		})
-	}
+	};
 
 	return api;
 }]);

@@ -1,4 +1,27 @@
-
-	//
-   Created by michi on 07.06.2014.
-
+doctype html
+html(ng-app='nodioClient')
+	head
+		script(src='/javascript/lib/jquery.js')
+		script(src='/javascript/lib/bootstrap.js')
+		script(src='/javascript/lib/bootstrap-slider.js')
+		script(src='/javascript/lib/angular.js')
+		script(src='/javascript/app/app.js')
+		script(src='/javascript/app/controller/TrackListController.js')
+		script(src='/javascript/app/controller/playerController.js')
+		script(src='/javascript/app/api.js')
+		title= title
+		link(rel='stylesheet', href='/css/bootstrap.css')
+		link(rel='stylesheet', href='/css/slider.css')
+		link(rel='stylesheet', href='/css/styles.css')
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+	body
+		.container
+			.row
+				.col-lg-4
+				.col-xs-12.grey.col-lg-4.bordered
+					.row
+						hr
+					include player
+					.row
+						hr
+					include trackList
