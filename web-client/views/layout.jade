@@ -1,0 +1,69 @@
+doctype html
+html(ng-app='nodioClient')
+	head
+		script(src='/javascript/lib/jquery.js')
+		script(src='/javascript/lib/angular.js')
+		script(src='/javascript/lib/bootstrap.js')
+		script(src='/javascript/lib/bootstrap-slider.js')
+		script(src='/javascript/tracks.js')
+		script(src='/javascript/api.js')
+		script(src='/javascript/player.js')
+		title= title
+		link(rel='stylesheet', href='/css/bootstrap.css')
+		link(rel='stylesheet', href='/css/nodio.css')
+		link(rel='stylesheet', href='/css/slider.css')
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+	body()
+		.container
+			.row
+				hr
+			.player.content(ng-controller='playerController')
+				.trackName
+					p Iron Maiden - Run to the Hills
+				//.clearfix
+				//	span.currentTime 2:04
+				//	span.totalTime / 9:15
+				//
+				//
+				//
+				//div
+				//	.slider-seeker
+				//		input(type='text', value='', data-slider-min='-20', data-slider-max='50', data-slider-step='1',
+				//		data-slider-value='5', data-slider-orientation='horizontal', data-slider-tooltip='hide')
+
+				.content
+					.btn-group
+						button.btn.btn-default.btn-xs
+							span.glyphicon.glyphicon-step-backward
+						button.btn.btn-default.btn-xs(ng-disabled='!status.links.unpause', ng-if='!status.links.pause', ng-click='action(status.links.unpause)')
+							span.glyphicon.glyphicon-play
+						button.btn.btn-default.btn-xs(ng-if='status.links.pause', ng-click='action(status.links.pause)')
+							span.glyphicon.glyphicon-pause
+						button.btn.btn-default.btn-xs(ng-disabled='!status.links.stop', ng-click='action(status.links.stop)')
+							span.glyphicon.glyphicon-stop
+						button.btn.btn-default.btn-xs
+							span.glyphicon.glyphicon-step-forward
+
+					.slider-volume
+						input(type='text', value='', data-slider-orientation='horizontal', data-slider-tooltip='hide').slider
+						span.glyphicon.glyphicon-volume-up
+
+			.row
+				hr
+			.tracks.content(ng-controller='tracksController')
+				p.title Tracks
+				ol.list
+					li
+						a(href='#') ../
+					li(ng-repeat='location in locations')
+						a(ng-click='getLocation(location.links.self)', href='#', title='{{location.name}}') {{location.name}}/
+				ol.list
+					li(ng-repeat='track in tracks')
+						a(ng-click='play(track.links.play)', href='#', title='{{track.name}}') {{track.name}}
+
+			.footer
+
+
+
+
