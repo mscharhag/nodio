@@ -7,10 +7,18 @@ nodioClient.factory('api', ['$http', '$rootScope', function ($http, $rootScope) 
 	api.onNewPlayerStatus = 'onNewPlayerStatus';
 	api.onRetrievedLocations = 'onRetrievedLocations';
 
-	var url = 'http://192.168.1.8:3000'
+	var url = 'http://192.168.1.8:3000';
+
+	api.status = function() {
+		$http.get(url + '/player').success(function(data, status, headers, config) {
+			$rootScope.$emit(api.onNewPlayerStatus, {path: "/player"}, data)
+		}).error(function() {
+			alert('error')
+		})
+	};
 
 	api.action = function(path) {
-		$http.get(url + path).success(function(data, status, headers, config) {
+		$http.post(url + path).success(function(data, status, headers, config) {
 			$rootScope.$emit(api.onNewPlayerStatus, {path: path}, data)
 		}).error(function() {
 			alert('error')

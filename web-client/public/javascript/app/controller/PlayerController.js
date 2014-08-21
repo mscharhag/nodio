@@ -8,17 +8,22 @@ nodioClient.controller('playerController', function ($scope, $http, api, $rootSc
 	});
 
 	$scope.action = function(url) {
-		api.changeVolume($scope.status.volume + 1);
+//		api.changeVolume($scope.status.volume + 1);
 //		api.playerAction(url)
+		api.action(url);
 	};
 
 	$scope.changeVolume = function(value) {
 		console.log('changeVolume', value);
 		api.changeVolume(value);
 	};
-	api.getPlayerStatus();
+	api.status();
+//	api.getPlayerStatus();
 });
-
+$(function() {
+	$('.slider-volume input, .slider-seeker input').slider()
+	$('.slider').attr('style', '')
+});
 
 
 
